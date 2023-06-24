@@ -1,4 +1,7 @@
-export const ContactForm = ({ onAddNumber,onAddContact, title, onChangesName, value ,onChangesNumber, number}) => {
+
+import PropTypes from "prop-types";
+import styles from './ContactForm.module.css'
+export const ContactForm = ({ onAddContact, title, onChangesName, value="", onChangesNumber, number=""}) => {
     
    const handelSubmit = e => {
        e.preventDefault()
@@ -6,20 +9,21 @@ export const ContactForm = ({ onAddNumber,onAddContact, title, onChangesName, va
        onChangesName("")
        onChangesNumber("")
     }
-    return <div>
+    return <>
         <h1>{title }</h1>
-<form  onSubmit ={handelSubmit}>
-         <p>Name</p>
+<form  className={styles.form} onSubmit ={handelSubmit}>
+         <p className={styles.text}>Name</p>
       <input
       type="text"
       name="name"
       pattern="^[A-Za-zА-Яа-яЁё]+\s?[A-Za-zА-Яа-яЁё]+$"
       title="Name may contain only letters and a single space in between. For example Rosie Simpson"
       required
-      value={value}
+     value={value}
+            
      onChange={(e) => {onChangesName(e.target.value)}}
             />
-     <p>Nomber</p>
+     <p className={styles.text}>Nomber</p>
       <input
       type="tel"
       name="number"
@@ -30,7 +34,16 @@ export const ContactForm = ({ onAddNumber,onAddContact, title, onChangesName, va
                 onChange={(e) => { onChangesNumber(e.target.value) }}
                 
       />
-      <button>Add contact</button>
+      <button className={styles.btn}>Add contact</button>
       </form>
-    </div>
+    </>
 }
+ContactForm.propTypes = {
+    onAddContact:PropTypes.func ,
+    title:PropTypes.string,
+    onChangesName:PropTypes.func,
+    value:PropTypes.string,
+    onChangesNumber:PropTypes.func,
+    number:PropTypes.string
+}
+
