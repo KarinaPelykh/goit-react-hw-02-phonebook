@@ -1,17 +1,30 @@
-
-import PropTypes from "prop-types";
 import styles from './ContactForm.module.css'
-export const ContactForm = ({ onAddContact, title, onChangesName, value="", onChangesNumber, number=""}) => {
+import { Component } from "react";
+export class ContactForm extends Component {
     
-   const handelSubmit = e => {
-       e.preventDefault()
-       onAddContact(value,number)
-       onChangesName("")
-       onChangesNumber("")
+    state = {
+        name: '',
+        number:''
     }
-    return <>
-        <h1>{title }</h1>
-<form  className={styles.form} onSubmit ={handelSubmit}>
+
+  handleInputChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+    };
+    
+    handelSubmit = e => {
+        e.preventDefault()
+        const { name, number } = this.state
+        this.props.onAddContact(name, number);
+      
+        this.setState({ name: '', number:''})
+    }
+    render() {
+    const { name, number } = this.state
+        return <>
+      
+            
+        <h1>Phonebook</h1>
+<form  className={styles.form} onSubmit ={this.handelSubmit}>
          <p className={styles.text}>Name</p>
       <input
       type="text"
@@ -19,9 +32,10 @@ export const ContactForm = ({ onAddContact, title, onChangesName, value="", onCh
       pattern="^[A-Za-zА-Яа-яЁё]+\s?[A-Za-zА-Яа-яЁё]+$"
       title="Name may contain only letters and a single space in between. For example Rosie Simpson"
       required
-     value={value}
+     value={name}
             
-     onChange={(e) => {onChangesName(e.target.value)}}
+                    onChange={this.handleInputChange}
+                  
             />
      <p className={styles.text}>Nomber</p>
       <input
@@ -31,19 +45,12 @@ export const ContactForm = ({ onAddContact, title, onChangesName, value="", onCh
       title="Phone number must be in the format 123-45-7 or 123457"
                 required
                 value={number}
-                onChange={(e) => { onChangesNumber(e.target.value) }}
+                onChange={this.handleInputChange}
                 
       />
       <button className={styles.btn}>Add contact</button>
       </form>
-    </>
-}
-ContactForm.propTypes = {
-    onAddContact:PropTypes.func ,
-    title:PropTypes.string,
-    onChangesName:PropTypes.func,
-    value:PropTypes.string,
-    onChangesNumber:PropTypes.func,
-    number:PropTypes.string
+    </>}
+   
 }
 

@@ -1,23 +1,8 @@
-
 import PropTypes from "prop-types";
-export const ContactList = ({ contacts = [], title, onDeleteContact, value, onInputSearchName }) => {
-  console.log(contacts);
- const handelSubmit = e => {
-       e.preventDefault()
-       onInputSearchName('')
-    }
-    return <>
-      <h2>{title}</h2>
-      <>
-    <p>Find contacts by name</p>
-        <input onSubmit={handelSubmit}
-          type="text"
-          name="name"
-          value={value}
-onChange={(e) => {onInputSearchName(e.target.value)}}
-        />
+export const ContactList = ({ contacts=[] , onDeleteContact }) => {
+ 
 
-    </>
+    return <>
     <ul>
         {
           contacts.map(item =>
@@ -30,16 +15,6 @@ onChange={(e) => {onInputSearchName(e.target.value)}}
     
     </>
 }
-// ContactList.propTypes = {
-//   contacts: PropTypes.arrayOF.shape({
-      
-//     }) ,
-//     title:PropTypes.string,
-//     onChangesName:PropTypes.func,
-//     value:PropTypes.string,
-//     onChangesNumber:PropTypes.func,
-//     number:PropTypes.string
-// }
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(
@@ -49,8 +24,6 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ),
-  title: PropTypes.string,
   onDeleteContact: PropTypes.func,
-  value: PropTypes.string,
-  onInputSearchName: PropTypes.func,
+ 
 };
